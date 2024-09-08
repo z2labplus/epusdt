@@ -31,6 +31,7 @@ var gCreateTransactionLock sync.Mutex
 
 // CreateTransaction 创建订单
 func CreateTransaction(req *request.CreateTransactionRequest) (*response.CreateTransactionResponse, error) {
+	fmt.Printf("\nreq : %s\n",req)
 	gCreateTransactionLock.Lock()
 	defer gCreateTransactionLock.Unlock()
 	payAmount := math.MustParsePrecFloat64(req.Amount, 2)
@@ -104,8 +105,10 @@ func CreateTransaction(req *request.CreateTransactionRequest) (*response.CreateT
 		ActualAmount:   order.ActualAmount,
 		Token:          order.Token,
 		ExpirationTime: ExpirationTime,
-		PaymentUrl:     fmt.Sprintf("%s/pay/checkout-counter/%s", config.GetAppUri(), order.TradeId),
+		// PaymentUrl:     fmt.Sprintf("%s/pay/checkout-counter/%s", config.GetAppUri(), order.TradeId),
+		PaymentUrl:     fmt.Sprintf("%s/pay/checkout-counter/%s", config.GetAppUri(), order.OrderId),
 	}
+	fmt.Printf("\nresp: %s\n",resp)
 	return resp, nil
 }
 
@@ -184,6 +187,18 @@ func GenerateCode() string {
 // GetOrderInfoByTradeId 通过交易号获取订单
 func GetOrderInfoByTradeId(tradeId string) (*mdb.Orders, error) {
 	order, err := data.GetOrderInfoByTradeId(tradeId)
+	if err != nil {
+		return nil, err
+	}
+	if order.ID <= 0 {
+		return nil, constant.OrderNotExists
+	}
+	return order, nil
+}
+
+// GetOrderInfoByOrderId 通过订单号获取订单
+func GetOrderInfoByOrderId(orderId string) (*mdb.Orders, error) {
+	order, err := data.GetOrderInfoByOrderId(orderId)
 	if err != nil {
 		return nil, err
 	}

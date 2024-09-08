@@ -1,6 +1,7 @@
 package handle
 
 import (
+	"fmt"
 	"context"
 	"errors"
 	"github.com/assimon/luuu/config"
@@ -57,6 +58,7 @@ func OrderCallbackHandle(ctx context.Context, t *asynq.Task) error {
 	if err != nil {
 		return err
 	}
+	fmt.Printf("\n callback_queue.go resp : %s\n",resp)
 	body := string(resp.Body())
 	if body != "ok" {
 		order.CallBackConfirm = mdb.CallBackConfirmNo

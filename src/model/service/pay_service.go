@@ -10,7 +10,8 @@ import (
 
 // GetCheckoutCounterByTradeId 获取收银台详情，通过订单
 func GetCheckoutCounterByTradeId(tradeId string) (*response.CheckoutCounterResponse, error) {
-	orderInfo, err := data.GetOrderInfoByTradeId(tradeId)
+	// orderInfo, err := data.GetOrderInfoByTradeId(tradeId)
+	orderInfo, err := data.GetOrderInfoByOrderId(tradeId)
 	if err != nil {
 		return nil, err
 	}
@@ -18,7 +19,7 @@ func GetCheckoutCounterByTradeId(tradeId string) (*response.CheckoutCounterRespo
 		return nil, errors.New("不存在待支付订单或已过期！")
 	}
 	resp := &response.CheckoutCounterResponse{
-		TradeId:        orderInfo.TradeId,
+		TradeId:        orderInfo.OrderId,
 		ActualAmount:   orderInfo.ActualAmount,
 		Token:          orderInfo.Token,
 		ExpirationTime: orderInfo.CreatedAt.AddMinutes(config.GetOrderExpirationTime()).TimestampWithMillisecond(),

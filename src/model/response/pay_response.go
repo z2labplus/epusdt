@@ -9,6 +9,7 @@ type CheckoutCounterResponse struct {
 }
 
 type CheckStatusResponse struct {
-	TradeId string `json:"trade_id"` //  epusdt订单号
+	// TradeId string `json:"trade_id"` //  epusdt订单号
+	OrderId string  `json:"order_id"`        //  客户交易id
 	Status  int    `json:"status"`
 }

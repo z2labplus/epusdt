@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"time"
 	"github.com/assimon/luuu/model/data"
 	"github.com/assimon/luuu/model/request"
 	"github.com/assimon/luuu/mq"
@@ -82,6 +83,11 @@ func Trc20CallBack(token string, wg *sync.WaitGroup) {
 		"start_timestamp": stdutil.ToString(startTime),
 		"end_timestamp":   stdutil.ToString(endTime),
 	}).Get(UsdtTrc20ApiUri)
+
+	currentTime := time.Now()
+	formattedTime := currentTime.Format("2006-01-02 15:04:05")
+	fmt.Printf("\n task_service.go %s ---------------------- \n ", formattedTime)
+	fmt.Printf(" resp : %s\n",resp)
 	if err != nil {
 		panic(err)
 	}

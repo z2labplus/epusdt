@@ -89,3 +89,5 @@ Usdt(trc20)打赏地址: TNEns8t9jbWENbStkQdVQtHMGpbsYsQjZK
 亦不鼓励和支持任何"挖矿"，"炒币"，"虚拟币ICO"等非法行为
 虚拟币市场行为不受监管要求和控制，投资交易需谨慎，仅供学习区块链知识
 ```
+
+/www/wwwroot/usdt.pimeyesbot.com/epusdt/src/appstart http start

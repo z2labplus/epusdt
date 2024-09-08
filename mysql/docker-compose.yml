@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0.27
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: PJA2rheBfSmN4MsL
+      MYSQL_DATABASE: epusdt
+      MYSQL_USER: epusdt
+      MYSQL_PASSWORD: epusdt
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf:/etc/mysql/conf.d

@@ -12,6 +12,7 @@ import (
 
 // CheckoutCounter 收银台
 func (c *BaseCommController) CheckoutCounter(ctx echo.Context) (err error) {
+	fmt.Printf("\nctx: %s\n",ctx)
 	tradeId := ctx.Param("trade_id")
 	resp, err := service.GetCheckoutCounterByTradeId(tradeId)
 	if err != nil {
@@ -21,18 +22,28 @@ func (c *BaseCommController) CheckoutCounter(ctx echo.Context) (err error) {
 	if err != nil {
 		return ctx.String(http.StatusOK, err.Error())
 	}
+	fmt.Printf("\n pay_controller.go resp: %s\n",resp)
 	return tmpl.Execute(ctx.Response(), resp)
 }
 
 // CheckStatus 支付状态检测
 func (c *BaseCommController) CheckStatus(ctx echo.Context) (err error) {
-	tradeId := ctx.Param("trade_id")
-	order, err := service.GetOrderInfoByTradeId(tradeId)
+	// tradeId := ctx.Param("trade_id")
+	// order, err := service.GetOrderInfoByTradeId(tradeId)
+
+	// 按order_id查询订单
+	orderId := ctx.Param("trade_id")
+	order, err := service.GetOrderInfoByOrderId(orderId)
+
 	if err != nil {
 		return c.FailJson(ctx, err)
 	}
+	// resp := response.CheckStatusResponse{
+	// 	TradeId: order.TradeId,
+	// 	Status:  order.Status,
+	// }
 	resp := response.CheckStatusResponse{
-		TradeId: order.TradeId,
+		OrderId: order.OrderId,
 		Status:  order.Status,
 	}
 	return c.SucJson(ctx, resp)
