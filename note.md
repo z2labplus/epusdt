@@ -1,10 +1,10 @@
 mysql -uepusdt -pPJA2rheBfSmN4MsL -h127.0.0.1 epusdt < v0.0.1.sql 
 
-go build -o /www/wwwroot/usdt.pimeyesbot.com/epusdt/src/appstart
-go build -o /www/wwwroot/usdt.pimeyesbot.com/epusdt/src/appstart -buildvcs=false
+cd /www/wwwroot/usdt.facechecker.io/epusdt/src
+go build -o /www/wwwroot/usdt.facechecker.io/epusdt/src/appstart -buildvcs=false
 
-cd /www/wwwroot/usdt.pimeyesbot.com/epusdt/src
-appstart http start 
+cd /www/wwwroot/usdt.facechecker.io/epusdt/src
+./appstart http start 
 
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'PJA2rheBfSmN4MsL';
 mysql -uroot -pPJA2rheBfSmN4MsL -h198.74.117.171
